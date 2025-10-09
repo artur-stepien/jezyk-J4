@@ -96,8 +96,6 @@ final class Verify
                 "of the tag from https://github.com/joomla/joomla-cms repository that you want to test against.\n\n".
                 "Available tags:\n$tags\n");
 
-            self::write("\nProvided arguments: ". json_encode($arguments,JSON_PRETTY_PRINT)."\n\n");
-
             exit(500);
         }
 
@@ -123,8 +121,6 @@ final class Verify
                 "`composer test:translation 4.4.0` or create a file /tmp/.test-against containing a name".
                 "of the tag from https://github.com/joomla/joomla-cms repository that you want to test against.\n\n".
                 "Available tags:\n$tags\n");
-
-            self::write("\nProvided arguments: ". json_encode($arguments,JSON_PRETTY_PRINT)."\n\n");
 
             exit(500);
         }
@@ -448,12 +444,13 @@ final class Verify
      */
     private function getReleaseTag(string $version): string
     {
+
         $tags = $this->getReleaseTags();
 
         usort($tags, 'version_compare');
 
         $tags = array_filter($tags, static function($tag) use ($version) {
-            return str_starts_with($tag, $version) && !str_contains($tag, '-');
+            return str_starts_with($tag, $version);
         });
 
         return end($tags);

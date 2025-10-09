@@ -95,6 +95,7 @@ final class Verify
                 "`composer test:translation 4.4.0` or create a file /tmp/.test-against containing a name".
                 "of the tag from https://github.com/joomla/joomla-cms repository that you want to test against.\n\n".
                 "Available tags:\n$tags\n");
+            self::write("\nProvided arguments: ". json_encode($arguments, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
 
             exit(500);
         }
